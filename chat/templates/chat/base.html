@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Чат</title>
+</head>
+<body>
+    <h3>Hello {{ user }}</h3>
+    <a href="/">home</a>
+    <a href="/conf">conference</a>
+    <a href="/logout">logout</a>
+    <hr>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

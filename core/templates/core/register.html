@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.errors }}
+        {% if custom_error %}
+            <ul>
+                <li>{{ custom_error }}</li>
+            </ul>
+        {% endif %}
+         <p>
+            {{ form.username.label_tag }}
+            {{ form.username}}
+        </p>
+        <p>
+            <label for="email">Email:</label>
+            <input type="text", name="email">
+        </p>
+        <p>
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+        </p>
+        <p>
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+        </p>
+        <input type="submit", value="Register">
+    </form>
+</body>
+</html>

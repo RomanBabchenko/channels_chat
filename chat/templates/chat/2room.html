@@ -1,0 +1,22 @@
+{% extends 'chat/base.html' %}
+
+{% block content %}
+    {% if not chat.private %}
+        <h3>ROOM: "{{ chat.chat_name }}"</h3>
+        <h4>Invited:
+            {% for user in chat.invited.all %}
+                {{ user }}
+            {% endfor %}
+        </h4>
+    {% else %}
+        <h3>Chat with {{ private }}</h3>
+    {% endif %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Send">
+    </form>
+    {% for message in messages %}
+        <p>{{ message.user }} ({{ message.short_time }}):</br> {{ message.text }}</p>
+    {% endfor %}
+{% endblock %}
