@@ -12,6 +12,8 @@
     <input id="chat-message-submit" type="button" value="Send"/>
 </body>
 <script>
+    var textarea = document.getElementById('chat-log');
+    textarea.scrollTop = textarea.scrollHeight+10;
     var roomName = {{ room_name_json }};
 
     var chatSocket = new WebSocket(
@@ -24,6 +26,7 @@
         var user = data['user'];
         var date = data['date'];
         document.querySelector('#chat-log').value += (user +'(' + date + ')' + '\n' + message +'\n');
+        textarea.scrollTop = textarea.scrollHeight+10;
     };
 
     chatSocket.onclose = function(e) {
