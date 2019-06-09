@@ -7,8 +7,8 @@
 </head>
 <body>
      <h3>Chat with {{ private }}</h3>
-    <textarea id="chat-log" cols="100" rows="20">{% for message in messages %}{{message.user}}({{message.short_time}}):&#13;&#10;{{message.text}}&#13;&#10;{% endfor %}</textarea><br/>
-    <input id="chat-message-input" type="text" size="100"/><br/>
+    <textarea id="chat-log" cols="100" rows="20" readonly="readonly">{% for message in messages %}{{message.user}}({{message.short_time}}):&#13;&#10;{{message.text}}&#13;&#10;{% endfor %}</textarea><br/>
+    <input id="chat-message-input" type="text" size="91"/>
     <input id="chat-message-submit" type="button" value="Send"/>
 </body>
 <script>
@@ -32,6 +32,8 @@
     chatSocket.onclose = function(e) {
         console.error('Chat socket closed unexpectedly');
     };
+
+
 
     document.querySelector('#chat-message-input').focus();
     document.querySelector('#chat-message-input').onkeyup = function(e) {

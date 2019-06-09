@@ -8,20 +8,21 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
-
+        self.online = True
         # Join room group
         await self.channel_layer.group_add(
             self.room_group_name,
-            self.channel_name
+            self.channel_name,
         )
 
         await self.accept()
 
     async def disconnect(self, close_code):
         # Leave room group
+        self.online = False
         await self.channel_layer.group_discard(
             self.room_group_name,
-            self.channel_name
+            self.channel_name,
         )
 
     # Receive message from WebSocket
@@ -38,7 +39,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'type': 'chat_message',
                 'user': user,
                 'id': id,
-                'message': message
+                'message': message,
+                'online': self.online
             }
         )
 
@@ -53,5 +55,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'user': user,
             'message': message,
             'date' : messagedump.short_time,
+            'online': self.online
 
         }))
